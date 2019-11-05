@@ -1,0 +1,75 @@
+# Data files and directories common in repo root
+datasets/
+logs/
+*.h5
+
+Mask_RCNN/
+
+# Mask_RCNN/kaggle/working/fashion20190709T1425/mask_rcnn_fashion_0001.h5
+# Mask_RCNN/kaggle/working/fashion20190709T1425/mask_rcnn_fashion_0002.h5
+# Mask_RCNN/kaggle/working/fashion20190709T1425/mask_rcnn_fashion_0003.h5
+# Mask_RCNN/kaggle/working/fashion20190709T1425/mask_rcnn_fashion_0004.h5
+# Mask_RCNN/kaggle/working/fashion20190709T1425/mask_rcnn_fashion_0005.h5
+# Mask_RCNN/kaggle/working/fashion20190709T1425/mask_rcnn_fashion_0006.h5
+
+# Mask_RCNN/kaggle/working/fashion20190721T2242/mask_rcnn_fashion_0001.h5
+# Mask_RCNN/kaggle/working/fashion20190721T2242/mask_rcnn_fashion_0002.h5
+# Mask_RCNN/kaggle/working/fashion20190721T2242/mask_rcnn_fashion_0003.h5
+# Mask_RCNN/kaggle/working/fashion20190721T2242/mask_rcnn_fashion_0004.h5
+# Mask_RCNN/kaggle/working/fashion20190721T2242/mask_rcnn_fashion_0005.h5
+# Mask_RCNN/kaggle/working/fashion20190721T2242/mask_rcnn_fashion_0006.h5
+
+results/
+temp/
+test/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# VS Studio Code
+.vscode
+
+# PyCharm
+.idea/
+
+# Dropbox
+.dropbox.attr
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# dotenv
+.env
+
+# virtualenv
+.venv
+venv/
+ENV/
