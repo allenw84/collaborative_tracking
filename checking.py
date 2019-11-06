@@ -1,7 +1,7 @@
 import threading
 import sys
 import pickle
-from socket import *
+from socket import  *
 
 def cal_ratio(box_range, grid_size, grid_pos):
     x_min = grid_size[0] * grid_pos[0]
@@ -60,6 +60,8 @@ def checkTable(msg):                      #fill msg[2]
         if(x):
             overlay.append(x)
     msg[2] =list(set(overlay))
+    if len(msg[2]) == 0:
+        return
     clientsocket = socket(AF_INET,SOCK_STREAM)
     clientsocket.connect(ip['A']) 
     t1=threading.Thread(target=send_message,args=(clientsocket,msg))

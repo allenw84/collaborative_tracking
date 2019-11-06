@@ -4,15 +4,15 @@ import pickle
 from time import sleep 
 from demo_yolo3_deepsort import Detector
 
-def findOverlapUser(overlap):
-    
+def findOverlapUser(overlap,user_entry_dict):
     userid = -1
-    for entry in user_entry_dict.value():
+    for entry in list(user_entry_dict.values()):
         for grid in overlap:
             if grid not in entry[3]:
                 continue
         userid = list(user_entry_dict.keys())[list(user_entry_dict.values()).index(entry)]
-        break;
+        print('ss',userid[0])
+        #break;
     return userid
 
 def handleOverlap(entry, msg):
@@ -25,7 +25,7 @@ def handleOverlap(entry, msg):
     entry[2].append(msg[3]) 
         
 
-def rev(tcpclientsocket,addr):
+def rev(tcpclientsocket,addr, user_entry_dict):
     try:
         data = tcpclientsocket.recv(1024)
         recv_msg = pickle.loads(data)
@@ -37,7 +37,8 @@ def rev(tcpclientsocket,addr):
         print(addr,' leaves')
         return
     
-    overlap_userid = findOverlapUser(recv_msg[2])
+    overlap_userid = findOverlapUser(recv_msg[2],user_entry_dict)
+    print(overlap_userid)
     handleOverlap(user_entry_dict[overlap_userid], recv_msg)
 
 def send(tcpclientsocket,addr):
@@ -49,7 +50,7 @@ def send(tcpclientsocket,addr):
         print(addr,'Unconnected')
         return
 def get_entry_dict():
-    entry  = return_user_dict() 
+    entry  = Detector.return_user_dict() 
     print(entry)
     return entry
 HOST = ''
@@ -60,6 +61,7 @@ server_socket.bind(ADDR)
 server_socket.listen(5)
 print ('Waiting for connecting')
 flag = 0
+user_entry_dict = get_entry_dict()
 while True:
     print(flag)
     if flag == 1000: #checking loop times
@@ -68,5 +70,5 @@ while True:
     tcpclientsocket,addr = server_socket.accept()
     print('\n')
     print( 'Connected by ',addr)
-    threading.Thread(target=rev,args=(tcpclientsocket,addr)).start()
+    threading.Thread(target=rev,args=(tcpclientsocket,addr,user_entry_dict)).start()
     flag+=1
