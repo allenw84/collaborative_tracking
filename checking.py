@@ -60,6 +60,7 @@ def checkTable(msg):                      #fill msg[2]
         if(x):
             overlay.append(x)
     msg[2] =list(set(overlay))
+    print(msg[2])
     if len(msg[2]) == 0:
         return
     clientsocket = socket(AF_INET,SOCK_STREAM)

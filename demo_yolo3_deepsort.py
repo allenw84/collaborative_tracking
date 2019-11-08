@@ -23,6 +23,9 @@ import mrcnn.model as modellib
 #import maskout.FashionConfig as faconfig
 #import maskout.InferenceConfig as inconfig
 
+import pickle
+from socket import *
+
 people_path = []
 direction_start = []
 unseen_frame = []
@@ -31,6 +34,7 @@ area_dic={}
 results=[]
 CAMERA_ID = 'A' #edit by camera
 
+#global user_entry_dict 
 user_entry_dict = {} #most important
 #example: dict = { 1: [[ [shirt,0.9,blue],[shoe,0.75,red] ], exit_point, 'A', grid_box]}
 exix_point = 0 #default value
@@ -48,6 +52,7 @@ class Detector(object):
         self.yolo3 = YOLOv3(args.yolo_cfg, args.yolo_weights, args.yolo_names, is_xywh=True, conf_thresh=args.conf_thresh, nms_thresh=args.nms_thresh)
         self.deepsort = DeepSort(args.deepsort_checkpoint)
         self.class_names = self.yolo3.class_names
+
 
         #self.maskrcnn = 
 
@@ -70,11 +75,10 @@ class Detector(object):
             print(exc_type, exc_value, exc_traceback)
         
 
-    def return_user_dict():
-        return user_entry_dict
+    def return_user_dict(self):
+        return self.user_entry_dict
 
     def detect(self):
-        
         #xmin, ymin, xmax, ymax = self.area
         jump_flag = 1 
         start = time.time()
@@ -83,8 +87,8 @@ class Detector(object):
             #pool = mp.Pool(processes=6) #6-core
             _, ori_im = self.vdo.retrieve()
             im_height, im_width = ori_im.shape[:2]
-            x_max = 10
-            y_max = 10
+            x_max = 5
+            y_max = 5
             x_grid = int(im_width / x_max)
             y_grid = int(im_height / y_max)
             display_im = ori_im
@@ -98,6 +102,11 @@ class Detector(object):
             #         unseen_frame[i] += 1 
             if jump_flag%2 ==0 : #jump frame  
                 #start = time.time()
+
+                clientsocket = socket(AF_INET,SOCK_STREAM)
+                clientsocket.connect(('140.114.79.179',10523)) 
+                clientsocket.send(pickle.dumps(user_entry_dict))
+
                 im = cv2.cvtColor(ori_im, cv2.COLOR_BGR2RGB)
                 #img = ori_im
                 
@@ -160,7 +169,7 @@ class Detector(object):
                             print(user_entry_dict)
                             
                         #call project.py
-                        find_grids( output, [x_grid, y_grid], 0.3, user_entry_dict[output[-1]])
+                            find_grids( output, [x_grid, y_grid], 0.3, user_entry_dict[output[-1]])
 
 
                         x = []
